@@ -1,20 +1,40 @@
 package app;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
+
 public class HTMLAnalysis {
 
-    //HTMLData Object class variable
-    //JSOUP Object
+    private static HTMLData htmlData = new HTMLData();
+    private static Document document;
+    private static String url;
 
-    //constructor
-        //takes url as input, assigns to class variable
+    /*
+     * call analysis functions
+     * return HTMLData Object
+    */
+    public static HTMLData analyseURL(String inputUrl){
+        url = inputUrl;
+        try{
+            document = Jsoup.connect(url).get();
+            //call all analysis functions
+            analysePageTitle(document);
 
-    //analyseURL
-        //call analysis functions
-        //return HTMLData Object
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
+        return htmlData;
+    }
 
-    //analysePageTitle
-        //uses JSOUP to get title element
-        //assigns to HTMLData.pageTitle
+    private static void analysePageTitle(Document document){
+        String title = document.getElementsByTag("title").text();
+        if(title != null){
+            HTMLData.pageTitle = title;
+        }
+    }
 
     //analyseHTMLVersion
         //uses JSOUP to get version element

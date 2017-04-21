@@ -6,10 +6,13 @@ public class UserInterfaceController {
 
     //renderTextInput using j2html
 
-    //renderResponseTable(url) using j2html
-        //HTMLAnalysis Object
-        //get domain of url using some lib
-        //HTMLData result = pass url and domain to HTMLAnalysis
+    public static String renderResponseTable(String inputUrl) {
+        HTMLAnalysis htmlAnalysis = new HTMLAnalysis();
+        HTMLData result = htmlAnalysis.analyseURL(inputUrl);
+        System.out.println("Page Title: " + result.pageTitle);
+
         //table = using j2html, creates table with HTMLData attributes
-        //return table
+        String resultTable = "<table></table>";
+        return resultTable;
+    }
 }
