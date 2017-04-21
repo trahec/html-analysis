@@ -1,15 +1,15 @@
 package app;
 
 public class HTMLData {
-    public float htmlVersion;
-    public String pageTitle;
-    public int numberOfHeadings;
-    public int numberOfH4s;
-    public int numberOfH3s;
-    public int numberOfH2s;
-    public int numberOfH1s;
-    public int numberOfLinks;
-    public int numberOfInternalLinks;
-    public int numberOfExternalLinks;
-    public boolean containsLoginForm;
+    public static float htmlVersion;
+    public static String pageTitle;
+    public static int numberOfHeadings;
+    public static int numberOfH4s;
+    public static int numberOfH3s;
+    public static int numberOfH2s;
+    public static int numberOfH1s;
+    public static int numberOfLinks;
+    public static int numberOfInternalLinks;
+    public static int numberOfExternalLinks;
+    public static boolean containsLoginForm;
 }
