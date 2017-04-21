@@ -1,9 +1,5 @@
 package app;
 
-/**
- * handles UI functionality
- */
-
 public class UserInterfaceController {
 
     //constructor

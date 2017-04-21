@@ -1,12 +1,5 @@
 package app;
 
-/**
- * handles html analysis functionality
- *
- * uses JSOUP to analyse webpage
- * defines HTMLData attributes
- * returns HTMLData Object
- */
 public class HTMLAnalysis {
 
     //HTMLData Object class variable
