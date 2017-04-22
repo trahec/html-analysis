@@ -36,7 +36,7 @@ public class HTMLAnalysis {
     private static void analysePageTitle(Document document){
         String title = document.getElementsByTag("title").text();
         if(title != null){
-            HTMLData.pageTitle = title;
+            htmlData.pageTitle = title;
         }
     }
 
@@ -45,7 +45,7 @@ public class HTMLAnalysis {
         DocumentType docType = (DocumentType) document.childNodes().get(0);//why not  document.childNodes[0]
         String docTypePublicId = docType.attr("publicid");
         if(docTypePublicId.equals("")){
-            HTMLData.htmlVersion = "HTML5";
+            htmlData.htmlVersion = "HTML5";
         }
         else{
             //extract version from publicid
