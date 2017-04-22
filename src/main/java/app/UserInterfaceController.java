@@ -10,7 +10,7 @@ import static j2html.TagCreator.*;
 public class UserInterfaceController {
 
     public static Tag renderIndexPage(){
-        Tag urlForm = form().withMethod("post").with(
+        Tag urlForm = form().withMethod("post").withAction("/action").with(
             HTMLBuilder.textBoxInput("url", "URL to be analysed"),
             HTMLBuilder.submitButton("Submit")
         );
