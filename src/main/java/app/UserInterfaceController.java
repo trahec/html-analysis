@@ -14,7 +14,7 @@ public class UserInterfaceController {
             HTMLBuilder.textBoxInput("url", "URL to be analysed"),
             HTMLBuilder.submitButton("Submit")
         );
-        return urlForm;
+        return HTMLBuilder.htmlTemplate(urlForm);
     }
 
     public static Tag renderResponseTable(String inputUrl) {
