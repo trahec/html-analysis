@@ -5,6 +5,20 @@ import static j2html.TagCreator.*;
 
 public class HTMLBuilder {
 
+    public static Tag htmlTemplate(Tag customBody){
+        return html().with(
+                head().with(
+                        title("HTML Analyser"),
+                        link().withRel("stylesheet").withHref("style.css")
+                ),
+                body().with(
+                        main().with(
+                                customBody
+                        )
+                )
+        );
+    }
+
     public static Tag textBoxInput(String identifier, String placeholder){
         return input()
                 .withType("text")
