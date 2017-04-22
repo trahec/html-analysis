@@ -1,7 +1,7 @@
 package app;
 
 public class HTMLData {
-    public static float htmlVersion;
+    public static String htmlVersion;
     public static String pageTitle;
     public static int numberOfHeadings;
     public static int numberOfH4s;

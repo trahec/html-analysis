@@ -2,6 +2,7 @@ package app;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.DocumentType;
 
 import java.io.IOException;
 
@@ -21,6 +22,7 @@ public class HTMLAnalysis {
             document = Jsoup.connect(url).get();
             //call all analysis functions
             analysePageTitle(document);
+            analyseHtmlVersion(document);
 
         }
         catch(IOException e){
@@ -37,9 +39,16 @@ public class HTMLAnalysis {
     }
 
     //analyseHTMLVersion
-        //uses JSOUP to get version element
-        //may need regex to extract version
-        //assigns to HTMLData.htmlVersion
+    private static void analyseHtmlVersion(Document document){
+        DocumentType docType = (DocumentType) document.childNodes().get(0);//why not  document.childNodes[0]
+        String docTypePublicId = docType.attr("publicid");
+        if(docTypePublicId.equals("")){
+            HTMLData.htmlVersion = "HTML5";
+        }
+        else{
+            //extract version from publicid
+        }
+    }
 
     //analyseHeadings
         //use JSOUP to get all headings h1, h2, h3, h4
