@@ -1,9 +1,11 @@
 package app;
 
 import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.DocumentType;
 
+import javax.swing.text.html.HTML;
 import java.io.IOException;
 
 public class HTMLAnalysis {
@@ -23,7 +25,7 @@ public class HTMLAnalysis {
             //call all analysis functions
             analysePageTitle(document);
             analyseHtmlVersion(document);
-
+            analyseHeadings(document);
         }
         catch(IOException e){
             System.out.println(e);
@@ -50,10 +52,16 @@ public class HTMLAnalysis {
         }
     }
 
-    //analyseHeadings
-        //use JSOUP to get all headings h1, h2, h3, h4
-        //assigns to HTMLData.numberOfH<n>
-        //sum off all headings assigned to HTMLData.numberOfHeadings
+    private static void analyseHeadings(Document document){
+        Elements hTags = document.select("h1, h2, h3, h4, h5, h6");
+        htmlData.numberOfHeadings = hTags.size();
+        htmlData.numberOfh1Tags = hTags.select("h1").size();
+        htmlData.numberOfh2Tags = hTags.select("h2").size();
+        htmlData.numberOfh3Tags = hTags.select("h3").size();
+        htmlData.numberOfh4Tags = hTags.select("h4").size();
+        htmlData.numberOfh5Tags = hTags.select("h5").size();
+        htmlData.numberOfh6Tags = hTags.select("h6").size();
+    }
 
     //analyseLinks
         //uses JSOUP to get all links
