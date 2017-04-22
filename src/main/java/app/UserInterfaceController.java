@@ -1,10 +1,18 @@
 package app;
 
+import j2html.tags.Tag;
+
+import static j2html.TagCreator.form;
+
 public class UserInterfaceController {
 
-    //constructor
-
-    //renderTextInput using j2html
+    public static Tag renderIndexPage(){
+        Tag urlForm = form().withMethod("post").with(
+            HTMLBuilder.textBoxInput("url", "URL to be analysed"),
+            HTMLBuilder.submitButton("Submit")
+        );
+        return urlForm;
+    }
 
     public static String renderResponseTable(String inputUrl) {
         HTMLAnalysis htmlAnalysis = new HTMLAnalysis();
