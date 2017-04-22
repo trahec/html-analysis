@@ -72,6 +72,7 @@ public class HTMLAnalysis {
             analyseHtmlVersion(document);
             analyseHeadings(document);
             analyseLinks(document, inputUrl);
+            analyseForLoginForm(document, inputUrl);
         }
         catch(IOException e){
             System.out.println(e);
@@ -123,7 +124,21 @@ public class HTMLAnalysis {
         }
     }
 
-    //analyseForLoginForm
-        //logic to detect login form in multiple ways and languages
-        //assign true or false to HTML.containsLoginForm
+    private static void analyseForLoginForm(Document document, String inputUrl){
+        try {
+            String urlPath = URLAnalysis.getPath(inputUrl);
+            Elements loginElements = document.getElementsByAttributeValueContaining("id", "login");
+            Elements passwordElements = document.getElementsByAttributeValueContaining("id", "password");
+
+            if(urlPath.contains("login") && loginElements.size()>0 && passwordElements.size()>0){
+                htmlData.containsLoginForm = true;
+            }
+            else{
+                htmlData.containsLoginForm = false;
+            }
+        }
+        catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 }

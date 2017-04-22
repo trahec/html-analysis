@@ -10,4 +10,9 @@ public class URLAnalysis {
         String domain = uri.getHost();
         return domain.startsWith("www.") ? domain.substring(4) : domain;
     }
+
+    public static String getPath(String url) throws URISyntaxException {
+        URI uri = new URI(url);
+        return uri.getPath();
+    }
 }
