@@ -20,8 +20,8 @@ public class UserInterfaceController {
     public static Tag renderResponseTable(String inputUrl) {
         HTMLAnalysis htmlAnalysis = new HTMLAnalysis();
         HTMLData htmlAnalysisResult = htmlAnalysis.analyseURL(inputUrl);
-        Tag resultTable = table().with(
-            getTableRowList(htmlAnalysisResult)
+        Tag resultTable = table().withText("Analysed URL: " + inputUrl).with(
+                getTableRowList(htmlAnalysisResult)
         );
         return HTMLBuilder.htmlTemplate(resultTable);
     }
