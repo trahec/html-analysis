@@ -1,12 +1,13 @@
 package app;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.DocumentType;
 
-import javax.swing.text.html.HTML;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class HTMLAnalysis {
 
@@ -26,6 +27,7 @@ public class HTMLAnalysis {
             analysePageTitle(document);
             analyseHtmlVersion(document);
             analyseHeadings(document);
+            analyseLinks(document, inputUrl);
         }
         catch(IOException e){
             System.out.println(e);
@@ -63,11 +65,26 @@ public class HTMLAnalysis {
         htmlData.numberOfh6Tags = hTags.select("h6").size();
     }
 
-    //analyseLinks
-        //uses JSOUP to get all links
-        //for each link, getDomain
-        //if linkDomain == urlDomain, then HTML.numberOfInternalLinks+=1
-        //else then HTML.numberOfExternalLinks+=1
+    private static void analyseLinks(Document document, String inputUrl){
+        Elements allLinks = document.select("a");
+        htmlData.numberOfLinks = allLinks.size();
+        try {
+            String inputDomainName = URLAnalysis.getDomainName(inputUrl);
+            for(Element link : allLinks){
+                String href = link.absUrl("href");
+                String hrefDomainName = URLAnalysis.getDomainName(href);
+                if(hrefDomainName.contains(inputDomainName)){
+                    htmlData.numberOfInternalLinks+=1;
+                }
+                else{
+                    htmlData.numberOfExternalLinks+=1;
+                }
+            }
+        }
+        catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
 
     //analyseForLoginForm
         //logic to detect login form in multiple ways and languages
