@@ -10,7 +10,6 @@ public class Application {
 
         //handle input
         String inputUrl = "http://wikipedia.org";
-        userInterfaceController.renderResponseTable(inputUrl);
-        //display table
+        get("/result", (req, res) -> UserInterfaceController.renderResponseTable(inputUrl));
     }
 }
