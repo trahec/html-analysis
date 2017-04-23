@@ -1,3 +1,5 @@
+package TestHTMLAnalysis;
+
 import app.HTMLAnalysis;
 import org.jsoup.Jsoup;
 import static org.junit.Assert.*;
