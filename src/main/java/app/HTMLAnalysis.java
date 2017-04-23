@@ -137,15 +137,25 @@ public class HTMLAnalysis {
     public static void detectLoginForm(Document document, String inputUrl){
         try {
             String urlPath = URLAnalysis.getPath(inputUrl);
-            Elements loginElements = document.getElementsByAttributeValueContaining("id", "login");
-            Elements passwordElements = document.getElementsByAttributeValueContaining("id", "password");
-
-            if(urlPath.contains("login") && loginElements.size()>0 && passwordElements.size()>0){
+            if(urlPath.contains("login")){
                 htmlData.containsLoginForm = true;
+                return;
             }
-            else{
-                htmlData.containsLoginForm = false;
+            Elements allForms = document.select("form");
+            for(Element form : allForms){
+                Elements loginIds = form.getElementsByAttributeValueContaining("id", "login");
+                Elements passwordIds = form.getElementsByAttributeValueContaining("id", "pass");
+                Elements loginClasses = form.getElementsByAttributeValueContaining("class", "login");
+                Elements passwordClasses = form.getElementsByAttributeValueContaining("class", "pass");
+
+                if(!loginIds.isEmpty() || !loginClasses.isEmpty()
+                        && !passwordIds.isEmpty() || !passwordClasses.isEmpty() )
+                {
+                    htmlData.containsLoginForm = true;
+                    return;
+                }
             }
+            htmlData.containsLoginForm = false;
         }
         catch (URISyntaxException e) {
             e.printStackTrace();
