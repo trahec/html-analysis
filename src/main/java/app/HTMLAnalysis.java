@@ -78,7 +78,7 @@ public class HTMLAnalysis {
         analyseHtmlVersion(document);
         analyseHeadings(document);
         analyseLinks(document, URL);
-        analyseForLoginForm(document, URL);
+        detectLoginForm(document, URL);
         return htmlData;
     }
 
@@ -134,7 +134,7 @@ public class HTMLAnalysis {
         }
     }
 
-    public static void analyseForLoginForm(Document document, String inputUrl){
+    public static void detectLoginForm(Document document, String inputUrl){
         try {
             String urlPath = URLAnalysis.getPath(inputUrl);
             Elements loginElements = document.getElementsByAttributeValueContaining("id", "login");
