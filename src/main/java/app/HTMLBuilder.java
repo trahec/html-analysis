@@ -8,8 +8,7 @@ public class HTMLBuilder {
     public static Tag htmlTemplate(Tag customBody){
         return html().with(
                 head().with(
-                        title("HTML Analyser"),
-                        link().withRel("stylesheet").withHref("style.css")
+                        title("HTML Analyser")
                 ),
                 body().with(
                         main().with(
