@@ -1,5 +1,6 @@
 package app;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -63,16 +64,13 @@ public class HTMLAnalysis {
      * call analysis functions
      * return HTMLData Object
     */
-    public static Document getHTMLDocument(String inputUrl){
+    public static Document getHTMLDocument(String inputUrl) throws IOException {
         URL = inputUrl;
         Document document = null;
         try {
             document = Jsoup.connect(inputUrl).get();
         }
         catch (UnknownHostException e){
-            e.printStackTrace();
-        }
-        catch (IOException e) {
             e.printStackTrace();
         }
         return document;

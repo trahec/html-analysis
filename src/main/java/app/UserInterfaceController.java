@@ -2,7 +2,10 @@ package app;
 
 import j2html.tags.Tag;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +23,17 @@ public class UserInterfaceController {
 
     public static Tag renderResponseTable(String inputUrl) {
         HTMLAnalysis htmlAnalysis = new HTMLAnalysis();
-        Document document;
-        if(URLAnalysis.isValidUrl(inputUrl)){
-             document = htmlAnalysis.getHTMLDocument(inputUrl);
-        }
-        else{
+        Document document = null;
+        if(!URLAnalysis.isValidUrl(inputUrl)){
             Tag error = div().with( p("Invlid URL provided: " + inputUrl));
+            return HTMLBuilder.htmlTemplate(error);
+        }
+        //get html document
+        try {
+            document = htmlAnalysis.getHTMLDocument(inputUrl);
+        }
+        catch (IOException e) {
+            Tag error = div().with( p("Error reaching the domain: " + inputUrl));
             return HTMLBuilder.htmlTemplate(error);
         }
         if(document != null){
