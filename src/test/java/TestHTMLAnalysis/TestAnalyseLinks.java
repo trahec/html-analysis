@@ -18,7 +18,7 @@ public class TestAnalyseLinks {
                 "<!DOCTYPE html><head><title>TestTitle</title></head><body> " +
                         "<a href=\"http://www.amazon.com\">link text</a>\n" +
                         "<a href=\"http://www.wikipedia.com\">link text</a>\n" +
-                        "<a href=\"http://https://www.amazon.com/b/ref=nav_cs_gc_registry?ie=UTF8&node=14069511011\">text</a>\n" +
+                        "<a href=\"https://www.amazon.com/b/ref=nav_cs_gc_registry?ie=UTF8&node=14069511011\">text</a>\n" +
                         "</body></html>");
         htmlAnalysis.analyseLinks(document, "http://amazon.com");
 
