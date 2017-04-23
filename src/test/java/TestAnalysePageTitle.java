@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
 
-public class TestHtmlAnalysis {
+public class TestAnalysePageTitle {
 
     HTMLAnalysis htmlAnalysis = new HTMLAnalysis();
 
