@@ -91,7 +91,12 @@ public class HTMLAnalysis {
 
     public static void analyseHtmlVersion(Document document){
         DocumentType docType = (DocumentType) document.childNodes().get(0);//why not  document.childNodes[0]
-        htmlData.htmlVersion = htmlVersionMap.get(docType.toString()).toString();
+        if(htmlVersionMap.containsKey(docType.toString())){
+            htmlData.htmlVersion = htmlVersionMap.get(docType.toString()).toString();
+        }
+        else{
+            htmlData.htmlVersion = "Invalid HTML Version";
+        }
     }
 
     public static void analyseHeadings(Document document){

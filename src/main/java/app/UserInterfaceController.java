@@ -30,9 +30,7 @@ public class UserInterfaceController {
 
     private static List<Tag> getTableRowList(HTMLData htmlData){
         ArrayList<Tag> tableRowList = new ArrayList<>();
-        if (htmlData.htmlVersion != null) {
-            tableRowList.add(tr().with(td("HTML Version"), td(htmlData.htmlVersion)));
-        }
+        tableRowList.add(tr().with(td("HTML Version"), td(htmlData.htmlVersion)));
         if (htmlData.pageTitle != null) {
             tableRowList.add(tr().with(td("Page Title"), td(htmlData.pageTitle)));
         }
