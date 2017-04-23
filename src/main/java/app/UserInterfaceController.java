@@ -2,6 +2,7 @@ package app;
 
 import j2html.tags.Tag;
 
+import org.jsoup.nodes.Document;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class UserInterfaceController {
 
     public static Tag renderResponseTable(String inputUrl) {
         HTMLAnalysis htmlAnalysis = new HTMLAnalysis();
-        HTMLData htmlAnalysisResult = htmlAnalysis.analyseURL(inputUrl);
+        Document document = htmlAnalysis.getHTMLDocument(inputUrl);
+        HTMLData htmlAnalysisResult = htmlAnalysis.analyseDocument(document);
         Tag resultTable = table().withText("Analysed URL: " + inputUrl).with(
                 getTableRowList(htmlAnalysisResult)
         );

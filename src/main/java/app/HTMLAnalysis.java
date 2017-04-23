@@ -13,9 +13,8 @@ import java.util.TreeMap;
 
 public class HTMLAnalysis {
 
-    private static HTMLData htmlData = new HTMLData();
-    private static Document document;
-    private static String url;
+    public static HTMLData htmlData = new HTMLData();
+    private static String URL;
 
     public enum htmlVersion {
         HTML5,
@@ -63,36 +62,39 @@ public class HTMLAnalysis {
      * call analysis functions
      * return HTMLData Object
     */
-    public static HTMLData analyseURL(String inputUrl){
-        url = inputUrl;
-        try{
-            document = Jsoup.connect(url).get();
-            //call all analysis functions
-            analysePageTitle(document);
-            analyseHtmlVersion(document);
-            analyseHeadings(document);
-            analyseLinks(document, inputUrl);
-            analyseForLoginForm(document, inputUrl);
+    public static Document getHTMLDocument(String inputUrl){
+        URL = inputUrl;
+        Document document = null;
+        try {
+            document = Jsoup.connect(inputUrl).get();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch(IOException e){
-            System.out.println(e);
-        }
+        return document;
+    }
+
+    public static HTMLData analyseDocument(Document document){
+        analysePageTitle(document);
+        analyseHtmlVersion(document);
+        analyseHeadings(document);
+        analyseLinks(document, URL);
+        analyseForLoginForm(document, URL);
         return htmlData;
     }
 
-    private static void analysePageTitle(Document document){
+    public static void analysePageTitle(Document document){
         String title = document.getElementsByTag("title").text();
         if(title != null && !title.equals("")){
             htmlData.pageTitle = title;
         }
     }
 
-    private static void analyseHtmlVersion(Document document){
+    public static void analyseHtmlVersion(Document document){
         DocumentType docType = (DocumentType) document.childNodes().get(0);//why not  document.childNodes[0]
         htmlData.htmlVersion = htmlVersionMap.get(docType.toString()).toString();
     }
 
-    private static void analyseHeadings(Document document){
+    public static void analyseHeadings(Document document){
         Elements hTags = document.select("h1, h2, h3, h4, h5, h6");
         htmlData.numberOfHeadings = hTags.size();
         htmlData.numberOfh1Tags = hTags.select("h1").size();
@@ -103,7 +105,7 @@ public class HTMLAnalysis {
         htmlData.numberOfh6Tags = hTags.select("h6").size();
     }
 
-    private static void analyseLinks(Document document, String inputUrl){
+    public static void analyseLinks(Document document, String inputUrl){
         Elements allLinks = document.select("a");
         htmlData.numberOfLinks = allLinks.size();
         try {
@@ -124,7 +126,7 @@ public class HTMLAnalysis {
         }
     }
 
-    private static void analyseForLoginForm(Document document, String inputUrl){
+    public static void analyseForLoginForm(Document document, String inputUrl){
         try {
             String urlPath = URLAnalysis.getPath(inputUrl);
             Elements loginElements = document.getElementsByAttributeValueContaining("id", "login");
