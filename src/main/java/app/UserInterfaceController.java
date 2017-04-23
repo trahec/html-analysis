@@ -20,7 +20,14 @@ public class UserInterfaceController {
 
     public static Tag renderResponseTable(String inputUrl) {
         HTMLAnalysis htmlAnalysis = new HTMLAnalysis();
-        Document document = htmlAnalysis.getHTMLDocument(inputUrl);
+        Document document;
+        if(URLAnalysis.isValidUrl(inputUrl)){
+             document = htmlAnalysis.getHTMLDocument(inputUrl);
+        }
+        else{
+            Tag error = div().with( p("Invlid URL provided: " + inputUrl));
+            return HTMLBuilder.htmlTemplate(error);
+        }
         HTMLData htmlAnalysisResult = htmlAnalysis.analyseDocument(document);
         Tag resultTable = table().withText("Analysed URL: " + inputUrl).with(
                 getTableRowList(htmlAnalysisResult)
