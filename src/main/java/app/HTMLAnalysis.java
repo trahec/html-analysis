@@ -147,9 +147,11 @@ public class HTMLAnalysis {
                 Elements passwordIds = form.getElementsByAttributeValueContaining("id", "pass");
                 Elements loginClasses = form.getElementsByAttributeValueContaining("class", "login");
                 Elements passwordClasses = form.getElementsByAttributeValueContaining("class", "pass");
+                Elements loginNames = form.getElementsByAttributeValueContaining("name", "login");
+                Elements passwordNames = form.getElementsByAttributeValueContaining("name", "pass");
 
-                if(!loginIds.isEmpty() || !loginClasses.isEmpty()
-                        && !passwordIds.isEmpty() || !passwordClasses.isEmpty() )
+                if(!loginIds.isEmpty() || !loginClasses.isEmpty() || !loginNames.isEmpty()
+                        && !passwordIds.isEmpty() || !passwordClasses.isEmpty() || !passwordNames.isEmpty() )
                 {
                     htmlData.containsLoginForm = true;
                     return;
