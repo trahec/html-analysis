@@ -6,7 +6,9 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static j2html.TagCreator.*;
 
@@ -22,12 +24,12 @@ public class UserInterfaceController {
 
     public static Tag renderResponseTable(String inputUrl) {
         HTMLAnalysis htmlAnalysis = new HTMLAnalysis();
-        Document document;
         if(!URLAnalysis.isValidUrl(inputUrl)){
             Tag error = div().with( p("Invlid URL provided: " + inputUrl));
             return HTMLBuilder.htmlTemplate(error);
         }
         //get html document
+        Document document;
         try {
             document = htmlAnalysis.getHTMLDocument(inputUrl);
         }
@@ -37,8 +39,9 @@ public class UserInterfaceController {
         }
         if(document != null){
             HTMLData htmlAnalysisResult = htmlAnalysis.analyseDocument(document);
+            Map<String, HashMap<String, String>> linkAvailabilityMapResult = htmlAnalysis.analyseLinkAvailability();
             Tag resultTable = table().withText("Analysed URL: " + inputUrl).with(
-                    getTableRowList(htmlAnalysisResult)
+                    getTableRowList(htmlAnalysisResult, linkAvailabilityMapResult)
             );
             return HTMLBuilder.htmlTemplate(resultTable);
         }
@@ -48,7 +51,7 @@ public class UserInterfaceController {
         }
     }
 
-    private static List<Tag> getTableRowList(HTMLData htmlData){
+    private static List<Tag> getTableRowList(HTMLData htmlData, Map<String, HashMap<String, String>> linkAvailabilityMap){
         ArrayList<Tag> tableRowList = new ArrayList<>();
         tableRowList.add(tr().with(td("HTML Version"), td(htmlData.htmlVersion)));
         if (htmlData.pageTitle != null) {
@@ -65,6 +68,12 @@ public class UserInterfaceController {
         tableRowList.add(tr().with(td("Number of external links"), td(Integer.toString(htmlData.numberOfExternalLinks))));
         tableRowList.add(tr().with(td("Number of external links"), td(Integer.toString(htmlData.numberOfInternalLinks))));
         tableRowList.add(tr().with(td("Does the page contain a login form?"), td(Boolean.toString(htmlData.containsLoginForm))));
+        tableRowList.add(tr().with(th("Link Analysed"), th("Availability Result")));
+        for(Map<String, String> linkMap : linkAvailabilityMap.values()){
+            for(String link : linkMap.keySet()){
+                tableRowList.add(tr().with(td(link), td(linkMap.get(link))));
+            }
+        }
         return tableRowList;
     }
 }

@@ -9,6 +9,7 @@ import org.jsoup.nodes.DocumentType;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -16,7 +17,7 @@ public class HTMLAnalysis {
 
     public static HTMLData htmlData = new HTMLData();
     private static String URL;
-
+    public static Map<String, HashMap<String, String>> domainMap = new HashMap<>();
     public enum htmlVersion {
         HTML5,
         HTML4,
@@ -116,6 +117,7 @@ public class HTMLAnalysis {
     }
 
     public static void analyseLinks(Document document, String inputUrl){
+        domainMap.clear();
         Elements allLinks = document.select("a");
         htmlData.numberOfLinks = allLinks.size();
         try {
@@ -123,6 +125,7 @@ public class HTMLAnalysis {
             for(Element link : allLinks){
                 String href = link.absUrl("href");
                 String hrefDomainName = URLAnalysis.getDomainName(href);
+                addToLinkMap(href, hrefDomainName);
                 if(hrefDomainName.contains(inputDomainName)){
                     htmlData.numberOfInternalLinks+=1;
                 }
@@ -164,5 +167,33 @@ public class HTMLAnalysis {
         catch (URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void addToLinkMap(String link, String domain){
+        String protocol = URLAnalysis.getProtocol(link) + "://";
+        if(!domainMap.containsKey(domain)){
+            domainMap.put(protocol+domain, new HashMap<>());
+            domainMap.get(protocol+domain).put(link, null);
+        }
+        else{
+            domainMap.get(protocol+domain).put(link, null);
+        }
+    }
+
+    public static Map<String, HashMap<String, String>> analyseLinkAvailability(){
+        for(String domain : domainMap.keySet()){
+            if(URLAnalysis.isAvailable(domain)){
+                HashMap<String, String> linkMap = domainMap.get(domain);
+                for(String link : linkMap.keySet()){
+                    if(URLAnalysis.isAvailable(link)){
+                        linkMap.put(link, "Available");
+                    }
+                    else{
+                        linkMap.put(link, "Not available");
+                    }
+                }
+            }
+        }
+        return domainMap;
     }
 }
