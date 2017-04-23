@@ -8,6 +8,7 @@ import org.jsoup.nodes.DocumentType;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -67,7 +68,11 @@ public class HTMLAnalysis {
         Document document = null;
         try {
             document = Jsoup.connect(inputUrl).get();
-        } catch (IOException e) {
+        }
+        catch (UnknownHostException e){
+            e.printStackTrace();
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return document;

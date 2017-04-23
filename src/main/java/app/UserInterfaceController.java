@@ -28,11 +28,17 @@ public class UserInterfaceController {
             Tag error = div().with( p("Invlid URL provided: " + inputUrl));
             return HTMLBuilder.htmlTemplate(error);
         }
-        HTMLData htmlAnalysisResult = htmlAnalysis.analyseDocument(document);
-        Tag resultTable = table().withText("Analysed URL: " + inputUrl).with(
-                getTableRowList(htmlAnalysisResult)
-        );
-        return HTMLBuilder.htmlTemplate(resultTable);
+        if(document != null){
+            HTMLData htmlAnalysisResult = htmlAnalysis.analyseDocument(document);
+            Tag resultTable = table().withText("Analysed URL: " + inputUrl).with(
+                    getTableRowList(htmlAnalysisResult)
+            );
+            return HTMLBuilder.htmlTemplate(resultTable);
+        }
+        else{
+            Tag error = div().with( p("HTML Document not found. Is URL valid? " + inputUrl));
+            return HTMLBuilder.htmlTemplate(error);
+        }
     }
 
     private static List<Tag> getTableRowList(HTMLData htmlData){
