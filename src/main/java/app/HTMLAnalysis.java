@@ -87,6 +87,9 @@ public class HTMLAnalysis {
         if(title != null && !title.equals("")){
             htmlData.pageTitle = title;
         }
+        else{
+            htmlData.pageTitle = null;
+        }
     }
 
     public static void analyseHtmlVersion(Document document){
