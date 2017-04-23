@@ -2,7 +2,6 @@ package app;
 
 import j2html.tags.Tag;
 
-import org.jsoup.HttpStatusException;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
@@ -23,7 +22,7 @@ public class UserInterfaceController {
 
     public static Tag renderResponseTable(String inputUrl) {
         HTMLAnalysis htmlAnalysis = new HTMLAnalysis();
-        Document document = null;
+        Document document;
         if(!URLAnalysis.isValidUrl(inputUrl)){
             Tag error = div().with( p("Invlid URL provided: " + inputUrl));
             return HTMLBuilder.htmlTemplate(error);
