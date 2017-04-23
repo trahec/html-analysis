@@ -82,7 +82,7 @@ public class HTMLAnalysis {
 
     private static void analysePageTitle(Document document){
         String title = document.getElementsByTag("title").text();
-        if(title != null){
+        if(title != null && !title.equals("")){
             htmlData.pageTitle = title;
         }
     }
