@@ -47,7 +47,7 @@ BUILD & RUN
 2. Go to <somedir>/html-analysis-src/
     Command: cd <somedir>/html-analysis-src/
 3. Build the project with maven
-    Command: mvn --package
+    Command: mvn package
 4. Run the application from <somedir>/html-analysis-src/
     Command: mvn exec:java -Dexec.mainClass="app.Application"
 5. Open http://localhost:4567/index in a web browser
