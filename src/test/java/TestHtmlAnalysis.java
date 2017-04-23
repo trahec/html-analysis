@@ -45,25 +45,4 @@ public class TestHtmlAnalysis {
         htmlAnalysis.analyseHtmlVersion(document);
         assertEquals("Invalid HTML Version", htmlAnalysis.htmlData.htmlVersion);
     }
-
-    //Test anaylyseHeadings
-    @Test
-    public void testAnalyseHeadings(){
-        Document document = Jsoup.parse(
-                "<!DOCTYPE html><head><title>TestTitle</title></head><body> " +
-                        "<h1>This is heading 1</h1>\n" +
-                        "<h2>This is heading 2</h2>\n" +
-                        "<h2>This is also heading 2</h2>\n" +
-                        "<h5>This is heading 5</h5>\n" +
-                        "<h6>This is heading 6</h6>" +
-                        "</body></html>");
-        htmlAnalysis.analyseHeadings(document);
-        assertEquals(5, htmlAnalysis.htmlData.numberOfHeadings);
-        assertEquals(1, htmlAnalysis.htmlData.numberOfh1Tags);
-        assertEquals(2, htmlAnalysis.htmlData.numberOfh2Tags);
-        assertEquals(0, htmlAnalysis.htmlData.numberOfh3Tags);
-        assertEquals(0, htmlAnalysis.htmlData.numberOfh4Tags);
-        assertEquals(1, htmlAnalysis.htmlData.numberOfh5Tags);
-        assertEquals(1, htmlAnalysis.htmlData.numberOfh6Tags);
-    }
 }
